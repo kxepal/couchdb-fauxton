@@ -29,7 +29,6 @@ function(FauxtonAPI, Layout, Router, RouteObject, utils) {
   //global app events
   FauxtonAPI.Events = _.extend({}, Backbone.Events);
 
-
   FauxtonAPI.navigate = function(url, _opts) {
     var options = _.extend({trigger: true}, _opts );
     FauxtonAPI.router.navigate(url,options);

@@ -107,48 +107,6 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb,
 
        FauxtonAPI.navigate(fragment, {trigger: false});
        FauxtonAPI.triggerRouteEvent('updateAllDocs', {ddoc: this.ddocID, view: this.viewName});
-    },
-
-
-    previewView: function(event, paramsInfo) {
-      event.preventDefault();
-      var that = this,
-      mapVal = this.mapVal(),
-      reduceVal = this.reduceVal(),
-      paramsArr = [];
-
-      if (paramsInfo && paramsInfo.params) {
-        paramsArr = paramsInfo.params;
-      }
-
-      var params = _.reduce(paramsArr, function (params, param) {
-        params[param.name] = param.value;
-        return params;
-      }, {reduce: false});
-
-      FauxtonAPI.addNotification({
-        msg: "<strong>Warning!</strong> Preview executes the Map/Reduce functions in your browser, and may behave differently from CouchDB.",
-        type: "warning",
-        fade: true,
-        escape: false // beware of possible XSS when the message changes
-      });
-
-      var promise = FauxtonAPI.Deferred();
-
-      if (!this.database.allDocs || this.database.allDocs.params.include_docs !== true) {
-        this.database.buildAllDocs({limit: Databases.DocLimit.toString(), include_docs: true});
-        promise = this.database.allDocs.fetch();
-       } else {
-        promise.resolve();
-       }
-
-      promise.then(function () {
-        params.docs = that.database.allDocs.map(function (model) { return model.get('doc');});
-        var queryPromise = pouchdb.runViewQuery({map: mapVal, reduce: reduceVal}, params);
-        queryPromise.then(function (results) {
-          FauxtonAPI.triggerRouteEvent('updatePreviewDocs', {rows: results.rows, ddoc: that.getCurrentDesignDoc().id, view: that.viewName});
-        });
-      });
     }
   });
 
