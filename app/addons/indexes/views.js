@@ -46,7 +46,6 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb,
       this.api = options.api;
       this.endpoint = options.endpoint;
       this.documentation = options.documentation;
-      this.eventer = _.extend({}, Backbone.Events);
       FauxtonAPI.Events.on('advancedOptions:updateView', this.updateView);
     },
     updateApiUrl: function(api){
@@ -66,7 +65,6 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb,
         viewName: this.viewName,
         ddocName: this.model.id,
         hasReduce: this.hasReduce(),
-        eventer: this.eventer,
         showStale: true
       }));
     },
