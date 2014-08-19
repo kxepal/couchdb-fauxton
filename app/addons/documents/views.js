@@ -655,6 +655,7 @@ function(app, FauxtonAPI, Components, Documents, Databases, Views, QueryOptions,
 
 
   Views.DdocInfo = FauxtonAPI.View.extend({
+    className: "view",
     template: "addons/documents/templates/ddoc_info",
 
     initialize: function (options) {
