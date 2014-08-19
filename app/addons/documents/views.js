@@ -38,7 +38,6 @@ function(app, FauxtonAPI, Components, Documents, Databases, Views, QueryOptions,
     });
   }
 
-  //Header for alldocs with search, Query options,& api bar
   Views.RightAllDocsHeader = FauxtonAPI.View.extend({
     className: "header-right",
     template: "addons/documents/templates/header_alldocs",
@@ -62,7 +61,7 @@ function(app, FauxtonAPI, Components, Documents, Databases, Views, QueryOptions,
 
     selectAllMenu: function(e){
       FauxtonAPI.triggerRouteEvent("toggleSelectHeader");
-      FauxtonAPI.Events.trigger("documents:show-select-all",this.selectVisible);
+      FauxtonAPI.Events.trigger("documents:showSelectAll",this.selectVisible);
     },
 
     addAllDocsMenu: function(){
@@ -177,7 +176,7 @@ function(app, FauxtonAPI, Components, Documents, Databases, Views, QueryOptions,
 
     selectAllMenu: function(e){
       FauxtonAPI.triggerRouteEvent("toggleSelectHeader");
-      FauxtonAPI.Events.trigger("documents:show-select-all",this.selectVisible);
+      FauxtonAPI.Events.trigger("documents:showSelectAll",this.selectVisible);
     },
 
     bulkDelete: function(){
@@ -251,13 +250,13 @@ function(app, FauxtonAPI, Components, Documents, Databases, Views, QueryOptions,
       this.expanded = options.expanded;
       this.showSelect = false;
       _.bindAll(this);
-      FauxtonAPI.Events.on("documents:show-select-all", this.showSelectBox);
+      FauxtonAPI.Events.on("documents:showSelectAll", this.showSelectBox);
       FauxtonAPI.Events.on("documents:collapse", this.collapse);
       FauxtonAPI.Events.on("documents:selectAll", this.selectAll);
     },
 
     cleanup: function(){
-      FauxtonAPI.Events.unbind("documents:show-select-all");
+      FauxtonAPI.Events.unbind("documents:showSelectAll");
       FauxtonAPI.Events.unbind("documents:collapse");
       FauxtonAPI.Events.unbind("documents:selectAll");
     },
