@@ -134,9 +134,6 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb,
     beforeRender: function(){
       var newLinks = [{
         links: [{
-          title: 'Table',
-          icon: 'fonticon-table'
-        },{
           title: 'JSON',
           icon: 'fonticon-json'
         }]
