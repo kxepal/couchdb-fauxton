@@ -124,7 +124,7 @@ function (app, FauxtonAPI, Databases, Views, Documents, Resources) {
     },
 
     /* --------------------------------------------------
-      Stored docs in preview
+      determines how many docs to display for the request
     ----------------------------------------------------*/
     getDocPerPageLimit: function (urlParams, perPage) {
       var storedPerPage = perPage;
