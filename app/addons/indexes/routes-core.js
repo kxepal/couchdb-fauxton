@@ -63,7 +63,6 @@ function (app, FauxtonAPI, Databases, Views, Documents, Resources) {
     },
 
     events: {
-      "route:updatePreviewDocs": "updateAllDocsFromPreview",
       "route:perPageChange": "perPageChange",
       "route:paginate": "paginate",
       "route:updateAllDocs": "updateAllDocsFromView"
@@ -216,30 +215,6 @@ function (app, FauxtonAPI, Databases, Views, Documents, Resources) {
         ddocInfo: this.ddocInfo(options.designDoc, options.designDocs, options.view),
         docParams: options.docParams,
         params: options.urlParams
-      }));
-    },
-
-
-    /* --------------------------------------------------
-      If Preview worked....
-    ----------------------------------------------------*/
-    updateAllDocsFromPreview: function (event) {
-      var view = event.view,
-      rows = event.rows,
-      ddoc = event.ddoc;
-
-      this.data.indexedDocs = new Documents.PouchIndexCollection(null, {
-        database: this.data.database,
-        design: ddoc,
-        view: view,
-        rows: rows
-      });
-
-      this.documentsView = this.setView("#right-content", new Documents.Views.AllDocsList({
-        database: this.data.database,
-        collection: this.data.indexedDocs,
-        nestedView: Views.Row,
-        viewList: true
       }));
     }
   });
