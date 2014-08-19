@@ -131,21 +131,15 @@ function(app, FauxtonAPI, Components, Documents, Databases, Views, QueryOptions,
 
       if (_.any(errorParams)) {
         _.map(errorParams, function(param) {
-
-          // TODO: Where to add this error?
-          // bootstrap wants the error on a control-group div, but we're not using that
-          //$('form.view-query-update input[name='+param+'], form.view-query-update select[name='+param+']').addClass('error');
           return FauxtonAPI.addNotification({
             msg: "JSON Parse Error on field: "+param.name,
             type: "error",
-            selector: ".advanced-options .errors-container",
             clear:  true
           });
         });
         FauxtonAPI.addNotification({
           msg: "Make sure that strings are properly quoted and any other values are valid JSON structures",
           type: "warning",
-          selector: ".advanced-options .errors-container",
           clear:  true
         });
 

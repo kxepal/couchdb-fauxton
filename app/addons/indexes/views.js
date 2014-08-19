@@ -86,10 +86,6 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb,
 
        if (_.any(errorParams)) {
          _.map(errorParams, function(param) {
-
-           // TODO: Where to add this error?
-           // bootstrap wants the error on a control-group div, but we're not using that
-           //$('form.view-query-update input[name='+param+'], form.view-query-update select[name='+param+']').addClass('error');
            return FauxtonAPI.addNotification({
              msg: "JSON Parse Error on field: "+param.name,
              type: "error",
