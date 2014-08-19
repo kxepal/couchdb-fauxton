@@ -70,6 +70,11 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb,
         showStale: true
       }));
     },
+
+    cleanup: function(){
+      FauxtonAPI.Events.unbind('advancedOptions:updateView');
+    },
+
     hasReduce: function(){
 
     },
@@ -223,8 +228,6 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb,
   });
 
 
-
-
   Views.ViewEditor = FauxtonAPI.View.extend({
     template: "addons/indexes/templates/view_editor",
     builtinReduces: ['_sum', '_count', '_stats'],
@@ -233,7 +236,6 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb,
       "click button.save": "saveView",
       "click button.delete": "deleteView",
       "change select#reduce-function-selector": "updateReduce",
-      "click button.preview": "previewView",
       "click #db-views-tabs-nav": 'toggleIndexNav',
       "click .beautify_map":  "beautifyCode",
       "click .beautify_reduce":  "beautifyCode"
@@ -587,6 +589,7 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb,
       targetEditor.setValue(beautifiedCode);
     },
     cleanup: function () {
+      FauxtonAPI.Events.unbind('index:delete');
       this.mapEditor && this.mapEditor.remove();
       this.reduceEditor && this.reduceEditor.remove();
     }

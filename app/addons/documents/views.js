@@ -55,6 +55,11 @@ function(app, FauxtonAPI, Components, Documents, Databases, Views, QueryOptions,
       FauxtonAPI.Events.on('success:bulkDelete', this.selectAllMenu);
     },
 
+    cleanup:function(){
+      FauxtonAPI.Events.unbind('advancedOptions:updateView');
+      FauxtonAPI.Events.unbind('success:bulkDelete');
+    },
+
     selectAllMenu: function(e){
       FauxtonAPI.triggerRouteEvent("toggleSelectHeader");
       FauxtonAPI.Events.trigger("documents:show-select-all",this.selectVisible);
@@ -240,6 +245,7 @@ function(app, FauxtonAPI, Components, Documents, Databases, Views, QueryOptions,
     className: function(){
       return (this.showSelect? "showSelect":"") + " all-docs-item doc-row";
     },
+
     initialize: function (options) {
       this.checked = options.checked;
       this.expanded = options.expanded;
@@ -248,6 +254,12 @@ function(app, FauxtonAPI, Components, Documents, Databases, Views, QueryOptions,
       FauxtonAPI.Events.on("documents:show-select-all", this.showSelectBox);
       FauxtonAPI.Events.on("documents:collapse", this.collapse);
       FauxtonAPI.Events.on("documents:selectAll", this.selectAll);
+    },
+
+    cleanup: function(){
+      FauxtonAPI.Events.unbind("documents:show-select-all");
+      FauxtonAPI.Events.unbind("documents:collapse");
+      FauxtonAPI.Events.unbind("documents:selectAll");
     },
 
     showSelectBox: function(bool){
@@ -535,6 +547,8 @@ function(app, FauxtonAPI, Components, Documents, Databases, Views, QueryOptions,
     },
 
     cleanup: function () {
+      FauxtonAPI.Events.unbind("documents:bulkDelete");
+      FauxtonAPI.Events.unbind("documents:selectAll");
       this.pagination && this.pagination.remove();
       this.allDocsNumber && this.allDocsNumber.remove();
       _.each(this.rows, function (row) {row.remove();});
